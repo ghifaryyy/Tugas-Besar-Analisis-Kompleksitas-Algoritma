@@ -147,7 +147,7 @@ else:  # Generate otomatis
     jumlah_elemen = st.sidebar.slider(
         "Jumlah elemen:",
         min_value=10,
-        max_value=1000,
+        max_value=10000,
         value=100,
         step=10
     )
@@ -350,3 +350,4 @@ Perbedaan **Iteratif vs Rekursif**:
 - Jumlah operasi pencarian **sama** (O(log n) iterasi/rekursi)
 - Rekursif membutuhkan **memori lebih** untuk call stack
 """)
+
