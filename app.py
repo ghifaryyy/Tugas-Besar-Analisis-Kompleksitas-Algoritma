@@ -147,7 +147,7 @@ else:  # Generate otomatis
     jumlah_elemen = st.sidebar.slider(
         "Jumlah elemen:",
         min_value=10,
-        max_value=10000,
+        max_value=1000,
         value=100,
         step=10
     )
@@ -247,7 +247,7 @@ Sesuai dengan requirement tugas besar: ukuran 1, 10, 100, 1000, dll.
 
 if st.button("📈 Jalankan Benchmark"):
     
-    ukuran_list = [10, 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000, 5000, 7500, 10000]
+    ukuran_list = [10, 50, 100, 200, 300, 500, 750, 1000]
     
     with st.spinner("Menjalankan benchmark..."):
         hasil = benchmark(ukuran_list)
@@ -350,5 +350,3 @@ Perbedaan **Iteratif vs Rekursif**:
 - Jumlah operasi pencarian **sama** (O(log n) iterasi/rekursi)
 - Rekursif membutuhkan **memori lebih** untuk call stack
 """)
-
-
