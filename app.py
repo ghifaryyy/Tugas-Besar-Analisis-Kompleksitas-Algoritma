@@ -276,16 +276,24 @@ if st.button("📈 Jalankan Benchmark"):
     # GRAFIK OPERASI
     st.subheader("Grafik Jumlah Operasi")
     
+    # Catatan: Iteratif dan Rekursif punya operasi yang SAMA
+    # Ini menunjukkan kedua algoritma punya kompleksitas operasi yang sama
+    st.info("💡 **Catatan:** Garis Iteratif dan Rekursif berimpit karena jumlah operasinya **sama persis** (keduanya O(log n))")
+    
     fig2, ax2 = plt.subplots(figsize=(10, 5))
     
-    ax2.plot(hasil["ukuran"], hasil["operasi_iteratif"], 'b-o', 
-             label='Iteratif', linewidth=2)
-    ax2.plot(hasil["ukuran"], hasil["operasi_rekursif"], 'r-s', 
-             label='Rekursif', linewidth=2)
+    # Tambah sedikit offset supaya garis terlihat
+    ops_iter_offset = [x - 0.1 for x in hasil["operasi_iteratif"]]
+    ops_rek_offset = [x + 0.1 for x in hasil["operasi_rekursif"]]
+    
+    ax2.plot(hasil["ukuran"], ops_iter_offset, 'b-o', 
+             label='Iteratif', linewidth=2, markersize=8)
+    ax2.plot(hasil["ukuran"], ops_rek_offset, 'r--s', 
+             label='Rekursif', linewidth=2, markersize=8)
     
     ax2.set_xlabel('Ukuran Linked List (n)')
     ax2.set_ylabel('Jumlah Operasi')
-    ax2.set_title('Perbandingan Jumlah Operasi')
+    ax2.set_title('Perbandingan Jumlah Operasi (Keduanya O(log n))')
     ax2.legend()
     ax2.grid(True, alpha=0.3)
     
@@ -313,40 +321,26 @@ if st.button("📈 Jalankan Benchmark"):
 st.divider()
 st.subheader("📚 Analisis Kompleksitas")
 
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("""
-    ### Binary Search Iteratif
-    
-    | Aspek | Kompleksitas |
-    |-------|--------------|
-    | **Waktu** | O(n log n) |
-    | **Ruang** | O(1) |
-    
-    **Catatan:** Kompleksitas O(n log n) karena setiap operasi memerlukan traversal O(n) ke index tengah.
-    """)
-
-with col2:
-    st.markdown("""
-    ### Binary Search Rekursif
-    
-    | Aspek | Kompleksitas |
-    |-------|--------------|
-    | **Waktu** | O(n log n) |
-    | **Ruang** | O(log n) |
-    
-    **Catatan:** Sama dengan iteratif, tapi rekursif butuh memori tambahan untuk call stack.
-    """)
-
 st.markdown("""
+### Tabel Perbandingan Kompleksitas
+
+| Kasus (Case) | Binary Search Iteratif | Binary Search Rekursif |
+|--------------|------------------------|------------------------|
+| **Best Case** | O(n) | O(n) |
+| **Average Case** | O(n log n) | O(n) |
+| **Worst Case** | O(n log n) | O(n) |
+| **Kompleksitas Ruang** | O(1) | O(log n) |
+
+---
+
 ### Kesimpulan
 
-Pada **Linked List**, Binary Search tidak seefisien pada Array karena:
-- Array: akses index O(1) → Binary Search O(log n)
-- Linked List: akses index O(n) → Binary Search O(n log n)
-
-Perbedaan **Iteratif vs Rekursif**:
-- Jumlah operasi pencarian **sama** (O(log n) iterasi/rekursi)
-- Rekursif membutuhkan **memori lebih** untuk call stack
+**Catatan Penting:**
+- Pada **Array**, Binary Search = O(log n) karena akses index O(1)
+- Pada **Linked List**, Binary Search lebih lambat karena akses index = O(n)
+- **Rekursif** memiliki kompleksitas waktu O(n) untuk semua kasus (berdasarkan analisis persamaan karakteristik: T(n) = 2n - 1)
+- **Iteratif** memiliki kompleksitas O(n) pada best case, O(n log n) pada average/worst case
+- Rekursif membutuhkan **memori tambahan O(log n)** untuk call stack
 """)
+
+
