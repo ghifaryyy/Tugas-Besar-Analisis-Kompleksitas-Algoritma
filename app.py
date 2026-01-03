@@ -330,7 +330,93 @@ st.markdown("""
 | **Average Case** | O(n log n) | O(n) |
 | **Worst Case** | O(n log n) | O(n) |
 | **Kompleksitas Ruang** | O(1) | O(log n) |
+""")
 
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    ### 📘 Analisis Iteratif
+    
+    **Best Case:**
+    ```
+    T(n) = n/2 → T(n) ∈ O(n)
+    ```
+    Elemen ditemukan di posisi tengah pertama kali.
+    
+    **Average Case:**
+    ```
+    T(n) ≈ (n/2) × (log n / 2) = ¼ n log n
+    T(n) ∈ O(n log n)
+    ```
+    
+    **Worst Case:**
+    ```
+    T(n) = n × Σ(1) dari i=1 sampai log n
+    T(n) = n × log n → T(n) ∈ O(n log n)
+    ```
+    """)
+
+with col2:
+    st.markdown("""
+    ### 📗 Analisis Rekursif
+    
+    **Relasi Rekurensi:**
+    ```
+    T(n) = 1,           jika n = 1
+    T(n) = T(n/2) + n,  jika n > 1
+    ```
+    
+    **1. Peubah Variabel:**
+    ```
+    n = 2ᵏ → k = log₂ n
+    T(2ᵏ) = T(2ᵏ⁻¹) + 2ᵏ
+    ```
+    
+    **2. Persamaan Rekurensi:**
+    ```
+    aₖ - aₖ₋₁ = 2ᵏ
+    Homogen: aₖ - aₖ₋₁ = 0
+    Non-homogen: f(k) = 2ᵏ
+    ```
+    
+    **3. Persamaan Karakteristik:**
+    ```
+    (a₀rᵏ + a₁rᵏ⁻¹ + ...)(r - b)^(d+1) = 0
+    (r - 1)(r - 2) = 0
+    r₁ = 1, r₂ = 2
+    ```
+    
+    **4. Solusi Umum:**
+    ```
+    aₖ = c₁r₁ᵏ + c₂r₂ᵏ
+    aₖ = c₁(1)ᵏ + c₂(2)ᵏ
+    
+    Syarat awal:
+    1 = c₁(1) + c₂(1) → c₁ + c₂ = 1
+    3 = c₁(1) + c₂(2) → c₁ + 2c₂ = 3
+    
+    Hasil: c₁ = -1, c₂ = 2
+    ```
+    
+    **5. Solusi Khusus:**
+    ```
+    aₖ = c₁(1)ᵏ + c₂(2)ᵏ
+    aₖ = (-1)·1 + (2)·2ᵏ
+    aₖ = 2ᵏ⁺¹ - 1
+    ```
+    
+    **6. Hasil Akhir:**
+    ```
+    T(n) = 2^(log₂n+1) - 1
+    T(n) = 2(2^log₂n) - 1
+    T(n) = 2n - 1
+    T(n) ∈ O(n)
+    ```
+    Berlaku untuk **semua kasus**.
+    """)
+
+st.markdown("""
 ---
 
 ### Kesimpulan
@@ -341,6 +427,5 @@ st.markdown("""
 - **Rekursif** memiliki kompleksitas waktu O(n) untuk semua kasus (berdasarkan analisis persamaan karakteristik: T(n) = 2n - 1)
 - **Iteratif** memiliki kompleksitas O(n) pada best case, O(n log n) pada average/worst case
 - Rekursif membutuhkan **memori tambahan O(log n)** untuk call stack
+- **Trade-off:** Pilih Iteratif jika memori terbatas, pilih Rekursif jika butuh waktu konsisten
 """)
-
-
