@@ -2,8 +2,6 @@
 # TUGAS BESAR: Perbandingan Binary Search Iteratif vs Rekursif pada Linked List
 # File: app.py (Aplikasi Streamlit)
 # =============================================================================
-# Kode algoritma ada di file tubes.py
-# =============================================================================
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -31,12 +29,10 @@ def ukur_waktu(fungsi, *args):
 
 def benchmark(ukuran_list, jumlah_pengulangan=5):
     """
-    Benchmark untuk berbagai ukuran linked list
+    Benchmark untuk berbagai ukuran Linked List
     
-    PERBAIKAN:
-    - Test WORST CASE (elemen terakhir) supaya operasi maksimal
-    - Jalankan beberapa kali dan ambil rata-rata untuk kurangi noise
-    - Hasil lebih representatif untuk analisis kompleksitas
+    Mencari elemen PERTAMA untuk menunjukkan pola traversal "going left"
+    yang sesuai dengan analisis matematis rekursif T(n) = 2n - 1 = O(n)
     """
     hasil = {
         "ukuran": [],
@@ -47,12 +43,11 @@ def benchmark(ukuran_list, jumlah_pengulangan=5):
     }
     
     for ukuran in ukuran_list:
-        # Buat linked list terurut: 1, 2, 3, ..., ukuran
+        # Buat Linked List terurut: 1, 2, 3, ..., ukuran
         linked_list = buat_linked_list_terurut(ukuran)
         
-        # WORST CASE: Cari elemen TERAKHIR (butuh log n operasi)
-        # Ini membuat binary search harus kerja maksimal
-        nilai_dicari = ukuran  # Elemen terakhir
+        # Cari elemen PERTAMA untuk pola "going left"
+        nilai_dicari = 1  # Elemen pertama
         
         # Jalankan beberapa kali untuk kurangi noise
         total_waktu_iter = 0
@@ -66,7 +61,7 @@ def benchmark(ukuran_list, jumlah_pengulangan=5):
                 binary_search_iteratif, linked_list, nilai_dicari
             )
             total_waktu_iter += waktu_iter
-            ops_iter = ops  # Operasi selalu sama untuk input yang sama
+            ops_iter = ops
             
             # Ukur rekursif
             (idx, depth), waktu_rek = ukur_waktu(
@@ -429,3 +424,6 @@ st.markdown("""
 - Rekursif membutuhkan **memori tambahan O(log n)** untuk call stack
 - **Trade-off:** Pilih Iteratif jika memori terbatas, pilih Rekursif jika butuh waktu konsisten
 """)
+
+
+
